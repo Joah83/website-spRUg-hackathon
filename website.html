@@ -29,15 +29,13 @@
                 const reader = port.readable.getReader();
                 while (true) {
                     const { value, done } = await reader.read();
-                    console.log("New Value: ", value)
+                    console.log("New Value: ", value);
 
                 }
 
             } catch (error) {
                 console.error("Connection failed:", error);
                 document.getElementById('box').innerText = "Connection Error";
-            } finally {
-                reader.releaseLock();
             }
         }
     </script>
