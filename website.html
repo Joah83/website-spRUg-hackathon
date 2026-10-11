@@ -31,21 +31,8 @@
                 const textDecoder = new TextDecoderStream();
                 const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
                 const reader = textDecoder.readable.getReader();
-                console.log("this is working2");
 
-                // 5. Infinite loop to constantly read hardware ticks
-                while (true) {
-                    const { value, done } = await reader.read();
-                    if (done) {
-                        reader.releaseLock();
-                        break;
-                    }
-                    if (value) {
-                        console.log("Value is: ", value);
-                        document.getElementById('box').innerText = value;
-                    }
-                    console.log("this is working");
-                }
+                
             } catch (error) {
                 console.error("Connection failed:", error);
                 document.getElementById('box').innerText = "Connection Error";
