@@ -29,7 +29,7 @@
                 const reader = port.readable.getReader();
                 while (true) {
                     const { value, done } = await reader.read();
-                    console.log("New Value: ", value);
+                    console.log("New Value: ", value[0]);
 
                 }
 
