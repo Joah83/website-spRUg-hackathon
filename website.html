@@ -20,32 +20,19 @@
             }
 
             try {
-                // 2. Prompt user to select their Arduino device
+                // prompt user to select their Arduino 
                 const port = await navigator.serial.requestPort();
-                
-                // 3. Open the stream matching your Arduino's Baud Rate
+
                 await port.open({ baudRate: 9600 });
                 document.getElementById('box').innerText = "Connected! Waiting for data...";
 
-                // 4. Initialize text decoder to translate raw bytes into readable characters
-                const textDecoder = new TextDecoderStream();
-                const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
-                const reader = textDecoder.readable.getReader();
-                console.log("this is working2");
-
-                // 5. Infinite loop to constantly read hardware ticks
+                const reader = port.readable.getReader();
                 while (true) {
                     const { value, done } = await reader.read();
-                    if (done) {
-                        reader.releaseLock();
-                        break;
-                    }
-                    if (value) {
-                        console.log("Value is: ", value);
-                        document.getElementById('box').innerText = value;
-                    }
-                    console.log("this is working");
+                    console.log("New Value: ", value[0]);
+
                 }
+
             } catch (error) {
                 console.error("Connection failed:", error);
                 document.getElementById('box').innerText = "Connection Error";
